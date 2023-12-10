@@ -1,0 +1,24 @@
+version: '3'
+
+volumes:
+  pg_data:
+  static:
+
+
+services:
+  db:
+    image: postgres:13
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+  accounts:
+    image: WillAgeG/lct_accounts
+    env_file: .env
+    volumes:
+      - static:/app/collected_static
+  load_balancer:
+    image: WillAgeG/lct_load_balancer
+    depends_on:
+      - "accounts"
+    ports:
+      - 9000:80
