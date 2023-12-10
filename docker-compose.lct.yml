@@ -12,12 +12,12 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   accounts:
-    image: WillAgeG/lct_accounts
+    image: willageg/lct_accounts
     env_file: .env
     volumes:
       - static:/app/collected_static
   load_balancer:
-    image: WillAgeG/lct_load_balancer
+    image: willageg/lct_load_balancer
     depends_on:
       - "accounts"
     ports:
