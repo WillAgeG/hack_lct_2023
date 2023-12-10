@@ -109,8 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '<your-client-id>',
-            'secret': '<your-client-secret>',
+            'client_id': os.getenv('GOOGLE_CLIENT_ID', ''),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET', ''),
             'key': ''
         },
         'SCOPE': [
