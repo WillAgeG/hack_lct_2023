@@ -15,6 +15,7 @@ ALLOWED_HOSTS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
     'https://' + os.getenv('DOMAIN'),
+    os.getenv('DOMAIN'),
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -53,12 +54,14 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
     'https://' + os.getenv('DOMAIN'),
+    os.getenv('DOMAIN'),
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
     'https://' + os.getenv('DOMAIN'),
+    os.getenv('DOMAIN'),
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -151,6 +154,7 @@ SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
     'https://' + os.getenv('DOMAIN'),
+    os.getenv('DOMAIN'),
 ]
 
 DJOSER = {
