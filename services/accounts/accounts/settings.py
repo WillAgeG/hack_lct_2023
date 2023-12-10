@@ -12,9 +12,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'http://localhost:9000',
-    'http://127.0.0.1:9000',
-    'https://' + os.getenv('DOMAIN'),
+    'localhost',
+    'localhost:9000',
+    '127.0.0.1:9000',
     os.getenv('DOMAIN'),
 ]
 
@@ -68,7 +68,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ]
 }
 
@@ -135,8 +135,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True # Optional, how token will be saved in DB
 
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
-    'http://localhost:9000',
-    'http://127.0.0.1:9000',
+    'http://localhost:9000/',
+    'http://127.0.0.1:9000/',
     'https://' + os.getenv('DOMAIN'),
     'https://' + os.getenv('DOMAIN'),
     'https://' + os.getenv('DOMAIN') + '/',
@@ -147,14 +147,6 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'accounts.strategy.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': SOCIAL_AUTH_ALLOWED_REDIRECT_URIS,
-    'PERMISSIONS': {
-        'user': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor'],
-        'user_list': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor']
-    },
-    'SERIALIZERS': {
-        'user': 'api.serializers.UserGETSerializer',
-        'current_user': 'api.serializers.UserGETSerializer',
-    },
 }
 
 ACCOUNT_EMAIL_REQUIRED = True

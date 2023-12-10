@@ -1,13 +1,13 @@
 from django.urls import include, path
 
-# from . import views
+from . import views
 
 
 urlpatterns = [
-    path('accounts/', include('djoser.urls')),
+    path('', include('djoser.urls')),
+    path('users/me/', views.UserMeView.as_view()),
     path(
-        'accounts/auth/',
+        'auth/',
         include('djoser.social.urls')
     ),
-    path('accounts/token/', include('djoser.urls.authtoken')),
 ]
