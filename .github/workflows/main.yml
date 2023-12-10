@@ -54,16 +54,6 @@ jobs:
       - build_accounts_and_push_to_docker_hub
       - build_load_balancer_and_push_to_docker_hub
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Copy docker-compose.yml via ssh
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          source: "docker-compose.lct.yml"
-          target: "lct"
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -75,4 +65,4 @@ jobs:
             sudo docker compose -f docker-compose.lct.yml pull
             sudo docker compose -f docker-compose.lct.yml down
             sudo docker compose -f docker-compose.lct.yml up -d
-            
+            sudo docker system prune -f
