@@ -151,6 +151,10 @@ DJOSER = {
         'user': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor'],
         'user_list': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor']
     },
+    'SERIALIZERS': {
+        'user': 'api.serializers.UserGETSerializer',
+        'current_user': 'api.serializers.UserGETSerializer',
+    },
 }
 
 ACCOUNT_EMAIL_REQUIRED = True
