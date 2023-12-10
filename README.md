@@ -1,6 +1,8 @@
 # Сервис анализа социальных сетей для профориентации молодежи
 ## Хакатон «Лидеры цифровой трансформации»
 
+[![Main deploy lct workflow](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml/badge.svg)](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml)
+
 ### Описание
 Вебсайт предназначен для прогнозирования карьеры на основе просмотренных видео на YouTube.
 
