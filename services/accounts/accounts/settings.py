@@ -152,7 +152,8 @@ SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
     'https://' + os.getenv('DOMAIN'),
-    os.getenv('DOMAIN'),
+    'https://' + os.getenv('DOMAIN'),
+    'https://' + os.getenv('DOMAIN') + '/',
     'https://' + os.getenv('DOMAIN') + '/api/v1/accounts/google/login/callback/'
 ]
 
