@@ -14,7 +14,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
-    ('https://%s', os.getenv('DOMAIN'))
+    'https://' + os.getenv('DOMAIN'),
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -52,13 +52,13 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
-    ('https://%s', os.getenv('DOMAIN'))
+    'https://' + os.getenv('DOMAIN'),
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
-    ('https://%s', os.getenv('DOMAIN'))
+    'https://' + os.getenv('DOMAIN'),
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -150,7 +150,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
-    ('https://%s', os.getenv('DOMAIN'))
+    'https://' + os.getenv('DOMAIN'),
 ]
 
 DJOSER = {
