@@ -34,8 +34,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'social_django',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -67,24 +65,11 @@ CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
-}
-
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('Bearer', 'JWT',),
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-
-    'AUTH_TOKEN_CLASSES': (
-        'rest_framework_simplejwt.tokens.AccessToken',
-        # 'location.to.custom.token.CustomJWTToken'
-        # This is optional - custom class where token could be manipulated e.g.
-        # enriched with tenants, UUIDs etc.
-    ),
 }
 
 ROOT_URLCONF = 'accounts.urls'
@@ -162,6 +147,10 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'accounts.strategy.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': SOCIAL_AUTH_ALLOWED_REDIRECT_URIS,
+    'PERMISSIONS': {
+        'user': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor'],
+        'user_list': ['api.permissions.IsAuthenticatedReadOnlyOrAuthor']
+    },
 }
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -211,3 +200,36 @@ STATIC_URL = 'api/v1/accounts/static/'
 STATIC_ROOT = BASE_DIR / 'collected_static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+            "formatter": "verbose",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "root": {
+        "handlers": ["file"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "your_app_name": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
