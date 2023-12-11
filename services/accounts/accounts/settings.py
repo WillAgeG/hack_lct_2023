@@ -13,6 +13,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
     'localhost:9000',
     '127.0.0.1:9000',
     os.getenv('DOMAIN'),
@@ -113,6 +114,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -121,6 +123,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_CLIENT_ID', '')
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
+
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
@@ -138,7 +141,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
     'prompt': 'consent'
 }
 
-# SOCIAL_AUTH_POSTGRES_JSONFIELD = True # Optional, how token will be saved in DB
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'http://localhost:9000/',
@@ -148,6 +153,18 @@ SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = [
     'https://' + os.getenv('DOMAIN') + '/',
     'https://' + os.getenv('DOMAIN') + '/api/v1/accounts/google/login/callback/'
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
