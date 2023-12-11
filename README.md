@@ -3,6 +3,10 @@
 
 [![Main deploy lct workflow](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml/badge.svg)](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml)
 
+### Документация сервисов Notion
+**https://capricious-comma-6e8.notion.site/3398e41c02144cd2979c5cd24350f97e?pvs=4**
+
+
 ### Описание
 Вебсайт предназначен для прогнозирования карьеры на основе просмотренных видео на YouTube.
 
