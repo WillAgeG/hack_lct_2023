@@ -23,5 +23,5 @@ services:
     volumes:
       - static:/app/collected_static
   parser:
-    image: ./services/parser/
+    build: ./services/parser/
     env_file: .env
