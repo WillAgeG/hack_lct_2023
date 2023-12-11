@@ -131,7 +131,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name',]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'access_type': 'offline'
+}
 
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True # Optional, how token will be saved in DB
 
