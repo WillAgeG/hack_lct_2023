@@ -1,10 +1,13 @@
 import logging
 
+import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
 
-from ..core.configs import API_SERVICE_NAME, API_VERSION, CLIENT_ID, CLIENT_SECRET, SCOPES
+from ..core.configs import (API_SERVICE_NAME, API_VERSION, CLIENT_ID,
+                            CLIENT_JSON_SECRET, CLIENT_SECRET, SCOPES)
 
 logger = logging.getLogger(__name__)
 
@@ -13,28 +16,9 @@ class YoutubeAPIParser:
     """
     Предоставялет данные пользователя по YouTube API.
     """
-    def __init__(
-        self,
-        access_token: str,
-        refresh_token: str
-    ) -> None:
-        user_info = {
-            'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET,
-            'access_token': access_token,
-            'refresh_token': refresh_token,
-            'token_uri': 'https://oauth2.googleapis.com/token'
-        }
-
-        credentials = Credentials.from_authorized_user_info(
-            info=user_info,
-            scopes=SCOPES
-        )
-
+    def __init__(self, credentials) -> None:
         self.youtube = googleapiclient.discovery.build(
-            API_SERVICE_NAME,
-            API_VERSION,
-            credentials=credentials
+            API_SERVICE_NAME, API_VERSION, credentials=credentials
         )
         self.channel_id = self. __get_channel_id()
 

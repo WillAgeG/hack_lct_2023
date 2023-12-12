@@ -13,7 +13,7 @@ CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 
 CLIENT_SECRET = os.getenv('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')
 
-CLEINT_JSON_SECRET = {
+CLIENT_JSON_SECRET = {
     "web": {
         "client_id": CLIENT_ID,
         "project_id": "compass-407606",
