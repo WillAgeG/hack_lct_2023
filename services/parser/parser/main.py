@@ -12,7 +12,7 @@ app = FastAPI()
 
 
 logging.basicConfig(
-    filename='main.log',
+    filename='general.log',
     filemode='w',
     format='%(asctime)s, %(levelname)s, %(message)s, %(name)s',
     level=logging.DEBUG
