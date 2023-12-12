@@ -1,5 +1,8 @@
 from django.urls import include, path
 
+from . import views
+
+
 urlpatterns = [
     path(
         '',
@@ -12,6 +15,10 @@ urlpatterns = [
     path(
         '',
         include('social_django.urls', namespace='social')
+    ),
+    path(
+        'users/google/token/',
+        views.UserGoogleTokenView.as_view()
     ),
     path(
         'auth/',
