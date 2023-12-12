@@ -2,7 +2,7 @@ import logging
 
 import requests
 
-from ..core.configs import ACCOUNTS_DOMAIN
+from ..core.configs import ACCOUNTS_HOST
 
 logger = logging.getLogger(__name__)
 
@@ -16,8 +16,7 @@ def get_google_tokens(auth_token: str) -> dict[str, str]:
     """
     try:
         url = (
-            'http://'
-            + ACCOUNTS_DOMAIN
+            ACCOUNTS_HOST
             + '/api/v1/accounts/users/google/token/'
         )
 
