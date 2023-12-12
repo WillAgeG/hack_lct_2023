@@ -20,7 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-@app.get('/api/v1/parser/')
+@app.post('/api/v1/parser/')
 async def parse_data(
     user_data: UserData,
     response: Response
