@@ -6,14 +6,6 @@ from google.oauth2.credentials import Credentials
 
 from ..core.configs import API_SERVICE_NAME, API_VERSION, CLIENT_ID, CLIENT_SECRET, SCOPES
 
-
-logging.basicConfig(
-    filename='main.log',
-    filemode='w',
-    format='%(asctime)s, %(levelname)s, %(message)s, %(name)s',
-    level=logging.DEBUG
-)
-
 logger = logging.getLogger(__name__)
 
 

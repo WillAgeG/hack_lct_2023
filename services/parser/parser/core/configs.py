@@ -28,3 +28,8 @@ CLEINT_JSON_SECRET = {
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
 ]
+
+
+# Accounts service
+
+ACCOUNTS_DOMAIN = 'accounts'
