@@ -27,7 +27,7 @@ async def parse_data(
     response: Response
 ):
     google_tokens = get_google_tokens(
-        UserData.auth_token
+        user_data.auth_token
     )
 
     youtube_parser = YoutubeAPIParser(
