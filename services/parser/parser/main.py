@@ -31,7 +31,7 @@ async def parse_data(
     )
 
     youtube_parser = YoutubeAPIParser(
-        google_tokens['credentials']
+        google_tokens['access_token']
     )
 
     try:

@@ -16,7 +16,9 @@ class YoutubeAPIParser:
     """
     Предоставялет данные пользователя по YouTube API.
     """
-    def __init__(self, credentials) -> None:
+    def __init__(self, access_token: str) -> None:
+        credentials = Credentials(access_token)
+
         self.youtube = googleapiclient.discovery.build(
             API_SERVICE_NAME, API_VERSION, credentials=credentials
         )
