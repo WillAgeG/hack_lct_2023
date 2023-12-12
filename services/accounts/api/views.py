@@ -1,10 +1,11 @@
 import logging
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
+from social_django.utils import load_strategy
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,8 @@ class UserGoogleTokenView(APIView):
             social = request.user.social_auth.get(provider='google-oauth2')
 
             # Обновляем токены
-            social.refresh_token()
+            strategy = load_strategy(backend='google-oauth2')
+            social.refresh_token(strategy)
 
             data = {
                 'access_token': social.extra_data['access_token'],
