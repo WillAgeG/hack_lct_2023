@@ -15,8 +15,14 @@ def get_google_tokens(auth_token: str) -> dict[str, str]:
     Аутентификация через token auth_token.
     """
     try:
+        url = (
+            'http://'
+            + ACCOUNTS_DOMAIN
+            + '/api/v1/accounts/users/google/token/'
+        )
+
         response = requests.get(
-            'http://' + ACCOUNTS_DOMAIN + '/users/google/token/',
+            url,
             headers={
                 'Authorization': ('Token ' + auth_token)
             }
