@@ -15,6 +15,7 @@ services:
     image: willageg/lct_load_balancer
     depends_on:
       - "accounts"
+      - "parser"
     ports:
       - 9000:80
   accounts:
