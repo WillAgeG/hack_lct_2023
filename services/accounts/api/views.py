@@ -26,7 +26,7 @@ class UserGoogleTokenView(APIView):
             social = request.user.social_auth.get(provider='google-oauth2')
 
             # Обновляем токены
-            strategy = load_strategy(backend='google-oauth2')
+            strategy = load_strategy(request=request)
             social.refresh_token(strategy)
 
             data = {
