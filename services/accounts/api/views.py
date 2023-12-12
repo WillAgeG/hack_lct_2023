@@ -31,7 +31,8 @@ class UserGoogleTokenView(APIView):
 
             data = {
                 'access_token': social.extra_data['access_token'],
-                'refresh_token': social.extra_data.get('refresh_token')
+                'refresh_token': social.extra_data.get('refresh_token'),
+                'google_credentials': social.get_credentials()
             }
 
             return Response(data=data, status=status.HTTP_200_OK)

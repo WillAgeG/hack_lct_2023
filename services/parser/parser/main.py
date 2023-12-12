@@ -5,7 +5,7 @@ from fastapi import Body, FastAPI, Response
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from .models.users import UserData
-from .services.accounts import get_google_tokens
+from .services.accounts import get_google_credentials
 from .services.youtube import YoutubeAPIParser
 
 app = FastAPI()
@@ -26,13 +26,12 @@ async def parse_data(
     user_data: UserData,
     response: Response
 ):
-    google_tokens = get_google_tokens(
+    google_tokens = get_google_credentials(
         user_data.auth_token
     )
 
     youtube_parser = YoutubeAPIParser(
-        google_tokens['access_token'],
-        google_tokens['refresh_token']
+        google_tokens['credentials']
     )
 
     try:

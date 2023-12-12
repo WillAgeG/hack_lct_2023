@@ -7,7 +7,7 @@ from ..core.configs import ACCOUNTS_HOST
 logger = logging.getLogger(__name__)
 
 
-def get_google_tokens(auth_token: str) -> dict[str, str]:
+def get_google_credentials(auth_token: str) -> dict[str, str]:
     """
     Получение access_tokken, refresh_token google oAuth2.
 
