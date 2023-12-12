@@ -29,7 +29,5 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
 ]
 
-
 # Accounts service
-
-ACCOUNTS_DOMAIN = 'accounts'
+ACCOUNTS_DOMAIN = 'accounts:8000'
