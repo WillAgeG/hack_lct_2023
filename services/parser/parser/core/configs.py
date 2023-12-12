@@ -30,4 +30,4 @@ SCOPES = [
 ]
 
 # Accounts service
-ACCOUNTS_DOMAIN = 'accounts:8000'
+ACCOUNTS_HOST = 'https://compas.fun'
