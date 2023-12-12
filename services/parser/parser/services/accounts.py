@@ -18,7 +18,7 @@ def get_google_tokens(auth_token: str) -> dict[str, str]:
         response = requests.get(
             'http://' + ACCOUNTS_DOMAIN + '/users/google/token/',
             headers={
-                'Authorization': 'Token ' + auth_token
+                'Authorization': ('Token ' + auth_token)
             }
         )
         if response.status_code == 200:
