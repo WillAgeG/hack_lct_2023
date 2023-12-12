@@ -20,7 +20,7 @@ class UserGoogleTokenView(APIView):
             }
         )}
     )
-    def get(self, request, pk, format=None):
+    def get(self, request):
         try:
             social = request.user.social_auth.get(provider='google')
 
