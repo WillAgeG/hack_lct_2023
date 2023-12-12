@@ -22,7 +22,7 @@ class UserGoogleTokenView(APIView):
     )
     def get(self, request):
         try:
-            social = request.user.social_auth.get(provider='google')
+            social = request.user.social_auth.get(provider='google-oauth2')
 
             # Обновляем токены
             social.refresh_token()
