@@ -14,8 +14,8 @@ services:
   load_balancer:
     build: ./services/load_balancer/
     depends_on:
-      - "accounts"
-      - "parser"
+      - 'accounts'
+      - 'parser'
     ports:
       - 9000:80
   accounts:
@@ -26,3 +26,19 @@ services:
   parser:
     build: ./services/parser/
     env_file: .env
+  predictor:
+    build:
+      context: ./services/predictor
+      dockerfile: ./Dockerfile
+    env_file: .env
+  redis:
+    image: redis:latest
+    ports:
+     - 6379:6379
+    restart: on-failure
+  celery_predictor:
+    build:
+      context: ./services/predictor
+      dockerfile: ./Dockerfile-celery
+    env_file: .env
+    restart: on-failure

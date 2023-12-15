@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'predictions.apps.PredictionsConfig',
     'api.apps.ApiConfig',
     'rest_framework',
     'rest_framework.authtoken',
@@ -260,3 +261,8 @@ LOGGING = {
         },
     },
 }
+
+# Predictor service
+PREDICTOR_PREFIX_DOMAIN = os.getenv('PREDICTOR_PREFIX_DOMAIN', 'http')
+
+PREDICTOR_DOMAIN = os.getenv('PREDICTOR_DOMAIN', 'predictor')

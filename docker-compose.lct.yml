@@ -26,3 +26,15 @@ services:
   parser:
     image: willageg/lct_parser
     env_file: .env
+  predictor:
+    build: willageg/lct_predictor
+    env_file: .env
+  redis:
+    image: redis:latest
+    ports:
+     - 6379:6379
+    restart: on-failure
+  celery_predictor:
+    build: willageg/lct_celery_predictor
+    env_file: .env
+    restart: on-failure
