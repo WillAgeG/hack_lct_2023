@@ -31,8 +31,6 @@ services:
     env_file: .env
   redis:
     image: redis:latest
-    ports:
-     - 6379:6379
     restart: on-failure
   celery_accounts:
     build:
