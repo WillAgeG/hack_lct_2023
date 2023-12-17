@@ -11,14 +11,39 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+  load_balancer:
+    build: ./services/load_balancer/
+    depends_on:
+      - 'accounts'
+      - 'parser'
+    ports:
+      - 9000:80
   accounts:
     build: ./services/accounts/
     env_file: .env
     volumes:
       - static:/app/collected_static
-  load_balancer:
-    build: ./services/load_balancer/
+  parser:
+    build: ./services/parser/
+    env_file: .env
+  predictor:
+    build: ./services/predictor/
+    env_file: .env
+  redis:
+    image: redis:latest
+    restart: on-failure
+  celery_accounts:
+    build:
+      context: ./services/accounts
+      dockerfile: ./Dockerfile-celery
+    env_file: .env
+    restart: on-failure
     depends_on:
-      - "accounts"
+      - redis
+  flower:
+    image: mher/flower:0.9.7
+    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
     ports:
-      - 9000:80
+      - 5555:5555
+    depends_on:
+      - redis
