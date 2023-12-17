@@ -2,7 +2,6 @@ import logging
 
 import requests
 
-from ..core.configs import DOMAIN, PREFIX_DOMAIN
 
 logger = logging.getLogger(__name__)
 

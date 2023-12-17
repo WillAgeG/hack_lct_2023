@@ -1,12 +1,10 @@
 import logging
 
-import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
 
-from ..core.configs import (API_SERVICE_NAME, API_VERSION)
+from ..core.configs import API_SERVICE_NAME, API_VERSION
 
 logger = logging.getLogger(__name__)
 

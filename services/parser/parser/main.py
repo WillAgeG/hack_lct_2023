@@ -1,7 +1,6 @@
 import logging
-from typing import Annotated
 
-from fastapi import Body, FastAPI, Response
+from fastapi import FastAPI, Response
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from .models.users import UserData
