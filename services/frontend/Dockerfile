@@ -12,4 +12,4 @@ COPY . .
 
 RUN mkdir /frontend_static/
 
-RUN cp -r /app/src/. /frontend_static/.
+CMD ["cp", "-r", "/app/src/.", "/frontend_static/."]

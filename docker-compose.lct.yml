@@ -13,10 +13,11 @@ services:
       - pg_data:/var/lib/postgresql/data
   load_balancer:
     image: willageg/lct_load_balancer
+    volumes:
+      - static:/staticfiles
     depends_on:
-      - "accounts"
-      - "parser"
-      - "predictor"
+      - 'accounts'
+      - 'parser'
     ports:
       - 9000:80
   frontend:
@@ -41,12 +42,5 @@ services:
     image: willageg/lct_celery_accounts
     env_file: .env
     restart: on-failure
-    depends_on:
-      - redis
-  flower:
-    image: mher/flower:0.9.7
-    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
-    ports:
-      - 5555:5555
     depends_on:
       - redis
