@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 
@@ -148,9 +149,9 @@ def get_prediction_from_ai(youtube_data: dict) -> dict[dict, dict, dict]:
     result3 = result3.encode('utf-8').decode('unicode_escape')
 
     return {
-        'result': result,
-        'result2': result2,
-        'result3': result3,
+        'result': json.loads(result),
+        'result2': json.loads(result2),
+        'result3': json.loads(result3),
     }
 
 
