@@ -36,7 +36,7 @@ services:
      - 6379:6379
     restart: on-failure
   celery_accounts:
-    build: willageg/lct_celery_accounts
+    image: willageg/lct_celery_accounts
     env_file: .env
     restart: on-failure
     depends_on:
