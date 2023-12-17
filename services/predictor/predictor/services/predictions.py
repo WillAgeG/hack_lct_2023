@@ -2,13 +2,13 @@ import json
 import logging
 import re
 
+import gensim
 import isodate
 import numpy as np
 import pandas as pd
 import requests
 from catboost import CatBoostClassifier
 from requests import Response
-from sklearn.feature_extraction.text import CountVectorizer
 
 logger = logging.getLogger(__name__)
 
@@ -99,7 +99,11 @@ def get_prediction_from_ai(youtube_data: dict) -> dict[dict, dict, dict]:
     filtered_dataset.loc[:, 'Title'] = filtered_dataset.loc[:, 'Title'].str.replace('\d+', '', regex=True)
     filtered_dataset.loc[:, 'Title'] = filtered_dataset.loc[:, 'Title'].str.replace('[^а-яА-Яa-zA-Z\s]', '', regex=True)
 
-    df_c = filtered_dataset[['Category', 'LikeCount']].groupby(['Category']).count().sort_values(by='LikeCount', ascending=False).reset_index()
+    df_c = filtered_dataset[['Category', 'LikeCount']].groupby(['Category']).count().sort_values(
+        by='LikeCount',
+        ascending=False
+    ).reset_index()
+
     df_c = df_c.head(10)
 
     df_c = df_c.to_json(orient='records')
@@ -129,17 +133,27 @@ def get_prediction_from_ai(youtube_data: dict) -> dict[dict, dict, dict]:
     model = CatBoostClassifier()
     model.load_model('catboost_model.bin')
 
-    df = pd.DataFrame(res)
-    df = df.rename(columns={0: 'Tag'})
-    df['Tag'] = df['Tag'].astype(str)
+    x_real = filtered_dataset['Title']
+    x_real_token = [gensim.utils.simple_preprocess(i) for i in x_real]
 
-    text_array = df['Tag'].values.astype(str)
-    arr_obj = text_array.astype(object)
+    fasttext_model_real = gensim.models.FastText(
+        sentences=x_real_token,
+        vector_size=100,
+        min_count=1,
+        window=5,
+        sg=0,
+        hs=1
+    )
 
-    vectorizer = CountVectorizer()
-    X_train_bow = vectorizer.fit_transform(arr_obj)
+    def sentence_vector(sentence, model):
+        if len(sentence) != 0:
+            return np.mean([model.wv[word] for word in sentence], axis=0)
+        else:
+            # возвращает вектор нулей той же размерности, что и другие векторы
+            return np.zeros(model.vector_size)
+    x_real_vec = [sentence_vector(sentence, fasttext_model_real) for sentence in x_real_token]
 
-    predictions = model.predict(X_train_bow)
+    predictions = model.predict(x_real_vec)
 
     result3 = pd.DataFrame(predictions)
     result3 = result3.rename(columns={0: 'Tag'})
@@ -160,7 +174,7 @@ async def create_prediction(
     predict_id: str
 ) -> None:
     """
-    Таск селери создание предсказания.
+    Создание предсказания.
 
     Предсказание будет создано и через accounts сервис передано в бд.
     """

@@ -13,11 +13,17 @@ services:
       - pg_data:/var/lib/postgresql/data
   load_balancer:
     build: ./services/load_balancer/
+    volumes:
+      - static:/staticfiles
     depends_on:
       - 'accounts'
       - 'parser'
     ports:
       - 9000:80
+  frontend:
+    build: ./services/frontend/
+    volumes:
+      - static:/frontend_static
   accounts:
     build: ./services/accounts/
     env_file: .env
