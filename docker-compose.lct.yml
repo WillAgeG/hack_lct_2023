@@ -28,7 +28,7 @@ services:
     image: willageg/lct_parser
     env_file: .env
   predictor:
-    build: willageg/lct_predictor
+    image: willageg/lct_predictor
     env_file: .env
   redis:
     image: redis:latest
