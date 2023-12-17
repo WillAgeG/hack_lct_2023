@@ -89,7 +89,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/lct_predictor:latest
 
   build_celery_accounts_and_push_to_docker_hub:
-    name: Push accounts Docker image to DockerHub
+    name: Push celery accounts Docker image to DockerHub
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -104,8 +104,8 @@ jobs:
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: ./services/accounts/
-          file: ./Dockerfile-celery
+          context: services/accounts/
+          file: services/accounts/Dockerfile-celery
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/lct_celery_accounts:latest  
 
