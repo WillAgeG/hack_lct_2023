@@ -1,13 +1,10 @@
 import logging
 
-import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
 
-from ..core.configs import (API_SERVICE_NAME, API_VERSION, CLIENT_ID,
-                            CLIENT_JSON_SECRET, CLIENT_SECRET, SCOPES)
+from ..core.configs import API_SERVICE_NAME, API_VERSION
 
 logger = logging.getLogger(__name__)
 
@@ -22,38 +19,40 @@ class YoutubeAPIParser:
         self.youtube = googleapiclient.discovery.build(
             API_SERVICE_NAME, API_VERSION, credentials=credentials
         )
-        self.channel_id = self. __get_channel_id()
 
-    def __get_channel_id(self):
-        channels_response = self.youtube.channels().list(
-            part='id',
-            mine=True
-        ).execute()
+    def get_youtube_data(self) -> list[dict]:
+        """Парсинг данных youtube"""
+        all_data = []
+        nextPageToken = None
+        for i in range(1, 40):  # 40 Потому что больше 2000 данных будет избыточно.
+            request = self.youtube.videos().list(
+                part="snippet,contentDetails,statistics,player",
+                myRating="like",
+                maxResults=50,
+                pageToken=nextPageToken
+            )
 
-        channel_id = channels_response['items'][0]['id']
+            response = request.execute()
 
-        return channel_id
+            for i in range(len(response['items'])):
+                data = dict(
+                    PublishedAt=response['items'][i]['snippet']['publishedAt'],
+                    ChannelId=response['items'][i]['snippet']['channelId'],
+                    Title=response['items'][i]['snippet']['title'],
+                    Tags=response['items'][i]['snippet'].get('tags'),
+                    Kind=response['items'][i]['kind'],
+                    Description=response['items'][i]['snippet']['description'],
+                    ChannelTitle=response['items'][i]['snippet']['channelTitle'],
+                    Id_video_category=response['items'][i]['snippet']['categoryId'],
+                    liveBroadcastContent=response['items'][i]['snippet']['liveBroadcastContent'],
+                    Duration=response['items'][i]['contentDetails']['duration'],
+                    ViewCount=response['items'][i]['statistics'].get('viewCount'),
+                    LikeCount=response['items'][i]['statistics'].get('likeCount'),
+                )
+                all_data.append(data)
 
-    def get_data(self):
-        data = {
-            "liked_videos": self.get_channel_stats(),
-            # ...
-        }
-        return data
+            nextPageToken = response.get('nextPageToken')
+            if not nextPageToken:
+                break
 
-    def get_channel_stats(self):
-        request = self.youtube.channels().list(
-            part='snippet,contentDetails,statistics',
-            id=self.channel_id
-        )
-        response = request.execute()
-
-        data = dict(
-            Channel_name=response['items'][0]['snippet']['title'],
-            Subscribers=response['items'][0]['statistics']['subscriberCount'],
-            Description=response['items'][0]['snippet']['description'],
-            Views=response['items'][0]['statistics']['viewCount'],
-            Total_videos=response['items'][0]['statistics']['videoCount']
-        )
-
-        return data
+        return all_data

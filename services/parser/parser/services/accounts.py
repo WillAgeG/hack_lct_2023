@@ -2,7 +2,6 @@ import logging
 
 import requests
 
-from ..core.configs import ACCOUNTS_HOST
 
 logger = logging.getLogger(__name__)
 
@@ -15,10 +14,7 @@ def get_google_credentials(auth_token: str) -> dict[str, str]:
     Аутентификация через token auth_token.
     """
     try:
-        url = (
-            ACCOUNTS_HOST
-            + '/api/v1/accounts/users/google/token/'
-        )
+        url = 'http://accounts:8000/api/v1/accounts/users/google/token/'
 
         response = requests.get(
             url,

@@ -16,6 +16,7 @@ services:
     depends_on:
       - "accounts"
       - "parser"
+      - "predictor"
     ports:
       - 9000:80
   accounts:
@@ -26,3 +27,24 @@ services:
   parser:
     image: willageg/lct_parser
     env_file: .env
+  predictor:
+    build: willageg/lct_predictor
+    env_file: .env
+  redis:
+    image: redis:latest
+    ports:
+     - 6379:6379
+    restart: on-failure
+  celery_accounts:
+    build: willageg/lct_celery_accounts
+    env_file: .env
+    restart: on-failure
+    depends_on:
+      - redis
+  flower:
+    image: mher/flower:0.9.7
+    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
+    ports:
+      - 5555:5555
+    depends_on:
+      - redis

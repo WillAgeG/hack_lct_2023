@@ -1,7 +1,6 @@
 import logging
-from typing import Annotated
 
-from fastapi import Body, FastAPI, Response
+from fastapi import FastAPI, Response
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from .models.users import UserData
@@ -35,7 +34,7 @@ async def parse_data(
     )
 
     try:
-        data = youtube_parser.get_data()
+        data = youtube_parser.get_youtube_data()
         response.status_code = 200
         return data
 

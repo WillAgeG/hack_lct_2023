@@ -16,6 +16,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost:9000',
     '127.0.0.1:9000',
+    'accounts:8000',
+    'accounts',
     os.getenv('DOMAIN'),
 ]
 
@@ -30,12 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'predictions.apps.PredictionsConfig',
     'api.apps.ApiConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
     'djoser',
     'social_django',
+    'celery',
+    'redis',
 ]
 
 MIDDLEWARE = [
@@ -54,12 +59,14 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
+    'http://accounts:8000',
     'https://' + os.getenv('DOMAIN'),
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:9000',
     'http://127.0.0.1:9000',
+    'http://accounts:8000',
     'https://' + os.getenv('DOMAIN'),
 ]
 
@@ -260,3 +267,16 @@ LOGGING = {
         },
     },
 }
+
+# Predictor service
+PREDICTOR_PREFIX_DOMAIN = os.getenv('PREDICTOR_PREFIX_DOMAIN', 'http')
+
+PREDICTOR_DOMAIN = os.getenv('PREDICTOR_DOMAIN', 'predictor')
+
+# Celery
+CELERY_TIMEZONE = 'Asia/Tokyo'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
