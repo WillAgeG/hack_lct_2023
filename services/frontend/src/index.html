@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Compas</title>
+	<!-- Links -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<header class="flex mt-4 w-[calc(100vw*0.9375)] mx-auto justify-between font-WorkSans">
+		<a href="index.html"><img src="assets/logo.png" alt=""></a>
+		<div class="flex gap-x-[calc(100vw*0.02604166)] pt-[22px]">
+			<a href="#" class="text-[25px] font-bold text-[#051531]">Тест Роршаха</a>
+			<a href="#" class="text-[25px] font-bold text-[#051531]">Профориентация</a>
+			<a href="#" class="text-[25px] font-bold text-[#051531]">Список Профессий</a>
+		</div>
+		<button
+			class="text-[25px] font-bold text-[#FCFCFC] bg-[#051531] px-[27px] mt-[22px] h-[56px] rounded-[20px] -translate-y-[10px]">Авторизация</button>
+	</header>
+
+	<!-- Main block -->
+	<section
+		class="grid grid-cols-5 gap-x-[43px] w-[calc(100vw*0.9666666)] mt-[calc(100vh*0.1925925)] ml-[calc(100vw*0.02125)]">
+		<!-- Left column -->
+		<div class="col-span-1">
+			<img src="assets/left.png" alt="" class="w-[calc(100vh*0.35416666)]">
+		</div>
+		<!-- Middle column -->
+		<div class="col-span-3 text-[#0A2351]">
+			<h1 class="text-[90px] text-center font-extrabold leading-[91px] font-Merriweather">Компас —
+				твой свет в
+				мире профессий
+			</h1>
+			<!-- 1 этап: без авторизации -->
+			<div class="mt-[83px] flex gap-[20px] font-bold w-[990px] mx-auto">
+				<a href="reg.html"><button
+						class="text-[50px] font-WorkSans h-[100px] w-[485px] border-2 border-[#0A2351] rounded-[30px]">Регистрация</button></a>
+				<button
+					class="text-[50px] font-WorkSans h-[100px] w-[485px] text-white bg-[#0A2351] rounded-[30px]">Авторизация</button>
+			</div>
+			<!-- 2 этап: с авторизацией -->
+			<div class="mt-[83px] flex gap-[20px] font-bold w-[990px] mx-auto" style="display: none;">
+				<button
+					class="text-[50px] font-WorkSans h-[100px] w-[485px] border-2 border-[#0A2351] rounded-[30px]">Профессия</button>
+				<button
+					class="text-[50px] font-WorkSans h-[100px] w-[485px] text-white bg-[#0A2351] rounded-[30px]">Аналитика</button>
+			</div>
+			<div class="w-[805px] flex mx-auto justify-between mt-[64px]">
+				<img src="assets/prof.svg" alt="">
+				<img src="assets/analyze.svg" alt="">
+				<img src="assets/sovet.svg" alt="">
+			</div>
+		</div>
+		<!-- Right column -->
+		<div class="col-span-1">
+			<img src="assets/right.png" alt="" class="w-[calc(100vh*0.35416666)]">
+		</div>
+	</section>
+</body>
+
+</html>

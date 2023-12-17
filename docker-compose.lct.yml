@@ -19,6 +19,10 @@ services:
       - "predictor"
     ports:
       - 9000:80
+  frontend:
+    image: willageg/lct_frontend
+    volumes:
+      - static:/frontend_static
   accounts:
     image: willageg/lct_accounts
     env_file: .env
