@@ -84,7 +84,7 @@ jobs:
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
         with:
-          file: ./services/predictor/Dockerfile
+          context: ./services/predictor/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/lct_predictor:latest
 
@@ -104,7 +104,8 @@ jobs:
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
         with:
-          file: ./services/accounts/Dockerfile-celery
+          context: ./services/accounts/
+          file: ./Dockerfile-celery
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/lct_celery_accounts:latest  
 
@@ -115,6 +116,7 @@ jobs:
       - build_load_balancer_and_push_to_docker_hub
       - build_parser_and_push_to_docker_hub
       - build_celery_accounts_and_push_to_docker_hub
+      - build_predictor_and_push_to_docker_hub
     steps:
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
