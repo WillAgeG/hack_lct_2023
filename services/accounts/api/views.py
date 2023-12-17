@@ -72,3 +72,6 @@ class InsertPredictViewSet(mixins.UpdateModelMixin,
         return Predict.objects.filter(
             user=self.request.user
         )
+
+    def perform_update(self, serializer):
+        serializer.save(status='READY')

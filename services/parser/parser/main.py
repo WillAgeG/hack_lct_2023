@@ -35,7 +35,7 @@ async def parse_data(
     )
 
     try:
-        data = youtube_parser.get_data()
+        data = youtube_parser.get_youtube_data()
         response.status_code = 200
         return data
 

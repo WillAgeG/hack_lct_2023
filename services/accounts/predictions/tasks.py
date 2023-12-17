@@ -8,7 +8,7 @@ from celery import shared_task
 logger = logging.getLogger(__name__)
 
 
-@shared_task
+@shared_task()
 def start_predicting(
     predict_id: str | int,
     auth_token: str
@@ -33,5 +33,8 @@ def start_predicting(
             response.status_code,
             response.json()
         )
+        return {
+            'message': 'start_predicting task failed'
+        }
 
-    return response
+    return response.json()

@@ -15,11 +15,7 @@ def get_google_credentials(auth_token: str) -> dict[str, str]:
     Аутентификация через token auth_token.
     """
     try:
-        url = (
-            PREFIX_DOMAIN
-            + DOMAIN
-            + '/api/v1/accounts/users/google/token/'
-        )
+        url = 'http://accounts:8000/api/v1/accounts/users/google/token/'
 
         response = requests.get(
             url,

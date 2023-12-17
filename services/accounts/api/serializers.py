@@ -2,7 +2,7 @@ from rest_framework import serializers, permissions
 from rest_framework.authtoken.models import Token
 
 from predictions.models import Predict
-from predictions.services import start_predicting
+from predictions.tasks import start_predicting
 from users.models import User
 
 
@@ -34,17 +34,19 @@ class PredictSerializer(serializers.ModelSerializer):
         predict = super().create(validated_data)
         key = Token.objects.get(user=request.user).key
 
-        predicting_response = start_predicting(
+        start_predicting.delay(
             predict.id,
             key
         )
 
+        '''
         if predicting_response.status_code != 200:
             response_data = str(predicting_response.json())
 
             raise serializers.ValidationError(
                 f'Error response from predict service. {response_data}',
             )
+        '''
 
         return predict
 
@@ -61,5 +63,5 @@ class InsertPredictSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             'id',
-            'status'
+            'status',
         )

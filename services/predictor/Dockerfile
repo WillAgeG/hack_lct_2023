@@ -8,4 +8,4 @@ RUN pip install -r /app/requirements.txt --no-cache-dir
 
 COPY . .
 
-CMD uvicorn predictor.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-config=log_conf.yaml
+CMD uvicorn predictor.main:app --host 0.0.0.0 --port 8000 --workers 4

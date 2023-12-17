@@ -27,18 +27,25 @@ services:
     build: ./services/parser/
     env_file: .env
   predictor:
-    build:
-      context: ./services/predictor
-      dockerfile: ./Dockerfile
+    build: ./services/predictor/
     env_file: .env
   redis:
     image: redis:latest
     ports:
      - 6379:6379
     restart: on-failure
-  celery_predictor:
+  celery_accounts:
     build:
-      context: ./services/predictor
+      context: ./services/accounts
       dockerfile: ./Dockerfile-celery
     env_file: .env
     restart: on-failure
+    depends_on:
+      - redis
+  flower:
+    image: mher/flower:0.9.7
+    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
+    ports:
+      - 5555:5555
+    depends_on:
+      - redis
