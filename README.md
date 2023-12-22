@@ -4,8 +4,7 @@
 [![Main deploy lct workflow](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml/badge.svg)](https://github.com/WillAgeG/hack_lct_2023/actions/workflows/main.yml)
 
 ### Нейронная сеть и анализ данных (Jupyter Notebook)
-Название файла v1_YT_Analitics.pynb
-Находится на главной странице.
+Название файла v1_YT_Analitics.pynb находится на главной странице.
 
 ### Документация сервисов Notion
 **https://capricious-comma-6e8.notion.site/3398e41c02144cd2979c5cd24350f97e?pvs=4**
