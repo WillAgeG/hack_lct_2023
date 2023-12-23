@@ -53,22 +53,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:9000',
-    'http://127.0.0.1:9000',
-    'http://accounts:8000',
-    'https://' + os.getenv('DOMAIN'),
-]
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:9000',
-    'http://127.0.0.1:9000',
-    'http://accounts:8000',
-    'https://' + os.getenv('DOMAIN'),
-]
-
-CORS_ALLOW_CREDENTIALS = True
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
